@@ -47,6 +47,9 @@ fastify.get('/CE', async (request, reply) => {
 fastify.get('/REC', async (request, reply) => {
   reply.redirect('/?wh=C820_R');
 });
+fastify.get('/GRV', async (request, reply) => {
+  reply.redirect('/?wh=C820_G');
+});
 
 fastify.get('/MX/aging.html', async (request, reply) => {
   reply.redirect('/aging.html?wh=C820_L');
@@ -56,6 +59,9 @@ fastify.get('/CE/aging.html', async (request, reply) => {
 });
 fastify.get('/REC/aging.html', async (request, reply) => {
   reply.redirect('/aging.html?wh=C820_R');
+});
+fastify.get('/GRV/aging.html', async (request, reply) => {
+  reply.redirect('/aging.html?wh=C820_G');
 });
 
 // Inicializando o servidor

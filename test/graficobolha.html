@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Bolha com Datas e Status</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+</head>
+<body>
+    <div>
+        <canvas id="bubbleChart"></canvas>
+    </div>
+    
+
+    <script>
+        const ctx = document.getElementById('bubbleChart').getContext('2d');
+
+        // Mapeia os status para números
+        const statusMap = {
+            "picking": 1,
+            "checking": 2,
+            "loading": 3,
+            "GI": 4
+        };
+
+        const data = {
+            datasets: [{
+                label: 'Processo Logístico',
+                data: [
+                    { x: '2024-02-01', y: statusMap["picking"], r: 15 },
+                    { x: '2024-02-01', y: statusMap["checking"], r: 20 },
+                    { x: '2024-02-01', y: statusMap["loading"], r: 5 },
+                    { x: '2024-02-01', y: statusMap["GI"], r: 50 },
+                    { x: '2024-02-05', y: statusMap["checking"], r: 20 },
+                    { x: '2024-02-10', y: statusMap["loading"], r: 10 },
+                    { x: '2024-02-15', y: statusMap["GI"], r: 30 }
+                ],
+                backgroundColor: 'rgba(75, 192, 192, 0.5)'
+            }]
+        };
+
+        const config = {
+            type: 'bubble',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',  // O eixo X será de datas
+                        time: {
+                            unit: 'day'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Data'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Status'
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                // Exibir os nomes ao invés de números
+                                return Object.keys(statusMap).find(key => statusMap[key] === value) || value;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
